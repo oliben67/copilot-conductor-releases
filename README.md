@@ -1,2 +1,3 @@
 # copilot-conductor-releases
-Copilot Conductor releases repo
+
+This is the release repository for [Copilot Conductor](https://github.com/oliben67/copilot-conductor).
