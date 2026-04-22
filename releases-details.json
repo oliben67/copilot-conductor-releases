@@ -1,0 +1,15 @@
+{
+  "v0.1.0": {
+    "conduct-cli": "0.1.0",
+    "con-pilot": "0.1.0"
+  },
+  "v0.2.0": {
+    "conduct": "0.1.0",
+    "con-pilot": "0.2.0"
+  },
+  "v0.3.0": {
+    "conduct": "0.4.0",
+    "con-pilot": "0.3.0",
+    "conduct-lectern": "0.1.0"
+  }
+}
