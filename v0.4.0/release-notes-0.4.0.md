@@ -1,6 +1,6 @@
 # Conductor v0.4.0
 
-**Release Date:** April 22, 2026
+**Release Date:** April 25, 2026
 
 > Multi-agent orchestration framework for GitHub Copilot.
 
