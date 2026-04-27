@@ -434,7 +434,7 @@ agent:
 
   # ── Project agent with numbered instances ──────────────────────────────────
   developer:
-    name: "code-monkey-[scope:project]-agent-[rank]"
+    name: "code-monkey-[scope]-agent-[rank]"
     description: Writes production code …
     active: true
     sidekick: true                    # exported as SIDEKICK_AGENT_NAME
@@ -446,7 +446,7 @@ agent:
 
   # ── Single-instance project agent ──────────────────────────────────────────
   reviewer:
-    name: "nosy-parker-[scope:project]"
+    name: "nosy-parker-[scope]"
     description: Reviews PRs …
     active: true
     model: claude-opus-4.6
@@ -486,17 +486,17 @@ Agent `name` fields support placeholder tokens that are substituted at file-crea
 
 | Placeholder | Substituted with |
 |-------------|------------------|
-| `[scope:project]` | The current project name (e.g. `my-app`) |
+| `[scope]` | The current project name (e.g. `my-app`) |
 | `[rank]` | The instance number for multi-instance agents (e.g. `1`, `2`) |
 | Any unknown `[token]` | Removed; consecutive `-` are collapsed |
 
 **Examples:**
 
 ```
-"code-monkey-[scope:project]-agent-[rank]"
+"code-monkey-[scope]-agent-[rank]"
   → project=my-app, rank=2  →  "code-monkey-my-app-agent-2"
 
-"nosy-parker-[scope:project]"
+"nosy-parker-[scope]"
   → project=api              →  "nosy-parker-api"
 
 "sir"
