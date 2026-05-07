@@ -11,9 +11,9 @@
 ## Highlights
 
 - **Self-extracting installer** — `setup-0.1.0.sh` bundles everything into a single file
-- **Flatpak packaging** — `con-pilot` runs sandboxed with Python 3.14 and uv-based bootstrap
+- **Flatpak packaging** — `agent-conductor` runs sandboxed with Python 3.14 and uv-based bootstrap
 - **Full CLI** — the `conduct` command wraps all lifecycle operations
-- **HTTP API** — FastAPI-powered service for programmatic access
+- **HTTP API** — FastAPI-powered service (agent-conductor) for programmatic access
 
 ---
 
@@ -45,7 +45,7 @@
 - `conduct admin replace/reset` — Admin operations (require `--key`)
 - Command-specific `--help` for all commands
 
-### HTTP API (`con-pilot serve`)
+### HTTP API (`agent-conductor serve`)
 - `/health` — Health check endpoint
 - `/version` — Version information
 - `/sync` — Trigger sync cycle

@@ -2,7 +2,7 @@
 
 > **A multi-agent orchestration framework for [GitHub Copilot](https://github.com/features/copilot).**
 
-Conductor manages a fleet of AI agents defined in a single `conductor.yaml` file. It automatically creates, retires, and restores `.agent.md` files, dispatches scheduled cron tasks, and exposes every lifecycle operation through both a CLI (`conduct`) and an HTTP API (`con-pilot`).
+Conductor manages a fleet of AI agents defined in a single `conductor.yaml` file. It automatically creates, retires, and restores `.agent.md` files, dispatches scheduled cron tasks, and exposes every lifecycle operation through both a CLI (`conduct`) and an HTTP API (`agent-conductor`).
 
 ---
 
@@ -45,7 +45,7 @@ Conductor manages a fleet of AI agents defined in a single `conductor.yaml` file
 
 - **Single source of truth** — all agents defined in one `conductor.yaml`
 - **Automatic sync** — creates, retires, and restores `.agent.md` files every 15 minutes
-- **Flatpak packaging** — con-pilot runs in a sandboxed Flatpak with Python 3.14 and uv-based bootstrap
+- **Flatpak packaging** — agent-conductor runs in a sandboxed Flatpak with Python 3.14 and uv-based bootstrap
 - **Self-extracting installer** — `setup.sh` bundles everything into a single ~23 MB file
 - **Install / Update / Uninstall** — full lifecycle via `setup.sh install`, `setup.sh update`, `setup.sh uninstall`
 - **Admin key security** — system agents protected by a UUID key; conductor agent permanently locked
@@ -89,7 +89,7 @@ flowchart TD
 
     subgraph RUNTIME["Runtime"]
         CONDUCT["conduct CLI\n(bash)"]
-        API["con-pilot serve\n(FastAPI)"]
+        API["agent-conductor serve\n(FastAPI)"]
         CONDUCT -->|"HTTP API"| API
         CONDUCT -->|"task"| TF["Taskfile.yml"]
     end
@@ -160,7 +160,7 @@ git clone https://github.com/oliben67/copilot-conductor.git
 cd copilot-conductor
 
 # Create and activate the Python virtual environment
-cd src/python/con-pilot
+cd src/python/agent-conductor
 uv sync --all-groups
 source .venv/bin/activate
 cd ../../..
@@ -235,7 +235,7 @@ dist/
 ├── setup-{version}-full-bundle.sh  # Full offline installer (~500+ MB)
 └── io.conductor.ConPilot.flatpak   # Standalone Flatpak bundle
 
-src/python/con-pilot/
+src/python/agent-conductor/
 ├── flatpak/deps/                   # Downloaded wheel dependencies
 ├── flatpak/build-dir/              # Flatpak build directory
 └── flatpak/repo/                   # Local Flatpak repository
@@ -251,8 +251,8 @@ task test -- -v
 task test -- tests/test_cli_integration.py -v
 
 # Run tests with coverage
-cd python/con-pilot
-python -m pytest tests/ -v --cov=con_pilot --cov-report=term-missing
+cd src/python/agent-conductor
+python -m pytest tests/ -v --cov=agent_conductor --cov-report=term-missing
 ```
 
 ---
@@ -918,13 +918,13 @@ Example: `.github/agents/templates/developer.agent.md` is used as the base for a
 ### Python tests (pytest)
 
 ```bash
-cd src/python/con-pilot
+cd src/python/agent-conductor
 
 # Run all tests
 python3 -m pytest tests/ -v
 
 # With coverage
-python3 -m pytest tests/ -v --cov=con_pilot --cov-report=term-missing
+python3 -m pytest tests/ -v --cov=agent_conductor --cov-report=term-missing
 ```
 
 The test suite uses isolated `tmp_path` fixtures — no real `$CONDUCTOR_HOME` files are touched. 144 tests cover every command and edge case.
